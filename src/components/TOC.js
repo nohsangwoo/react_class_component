@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+
 class TOC extends Component {
   render() {
+    console.log('asdfadsf', this.props.data);
+    const Objs = this.props.data;
     return (
       <nav>
         <ul>
-          <li>
-            <a href="1.html">HTML</a>
-          </li>
-          <li>
-            <a href="2.html">CSS</a>
-          </li>
-          <li>
-            <a href="3.html">JAVASCRIPT</a>
-          </li>
+          {Objs.map(data => (
+            <li key={data.id}>
+              <a href={`/content/${data.id}.html`}>{data.title}</a>
+              <div>{data.desc}</div>
+            </li>
+          ))}
         </ul>
       </nav>
     );
