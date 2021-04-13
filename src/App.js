@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import TOC from './components/TOC';
-import Content from './components/content';
+import ReadContent from './components/ReadContent';
 import Subject from './components/Subject';
 import Control from './components/control';
+import CreateContent from './components/CreateContent';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +23,12 @@ class App extends Component {
     console.log('App render', this.state.mode);
 
     let _title,
-      _desc = null;
+      _desc,
+      _article = null;
     if (this.state.mode === 'welcom') {
       _title = this.state.welcom.title;
       _desc = this.state.welcom.desc;
+      _article = <ReadContent title={_title} desc={_desc} />;
     } else if (this.state.mode === 'read') {
       // _title = this.state.contents[0].title;
       // _desc = this.state.contents[0].desc;
@@ -37,7 +40,9 @@ class App extends Component {
       const { title, desc } = distructureObj;
       _title = title;
       _desc = desc;
-      console.log('findCorrenctId', title, desc);
+      _article = <ReadContent title={_title} desc={_desc} />;
+    } else if (this.state.mode === 'create') {
+      _article = <CreateContent />;
     }
     return (
       <div className="App">
@@ -62,7 +67,12 @@ class App extends Component {
           }}
         />
 
-        <Content title={_title} desc={_desc} />
+        {/* {this.state.mode === 'read' ? (
+          <ReadContent title={_title} desc={_desc} />
+        ) : (
+          <CreateContent />
+        )} */}
+        {_article}
       </div>
     );
   }
