@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class TOC extends Component {
   render() {
-    console.log('asdfadsf', this.props.data);
+    console.log('TOC render');
     const Objs = this.props.data;
     return (
       <nav>
