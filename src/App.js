@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TOC from './components/TOC';
 import Content from './components/content';
 import Subject from './components/Subject';
-
+import Control from './components/control';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,8 @@ class App extends Component {
     };
   }
   render() {
-    console.log('App render');
+    console.log('App render', this.state.mode);
+
     let _title,
       _desc = null;
     if (this.state.mode === 'welcom') {
@@ -55,6 +56,12 @@ class App extends Component {
           data={this.state.contents}
           setState={this.setState}
         />
+        <Control
+          onChangePage={mode => {
+            this.setState({ mode });
+          }}
+        />
+
         <Content title={_title} desc={_desc} />
       </div>
     );

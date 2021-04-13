@@ -16,7 +16,6 @@ class TOC extends Component {
               }}
             >
               <a href={`/content/${data.id}.html`}>{data.title}</a>
-              <div>{data.desc}</div>
             </li>
           ))}
         </ul>
