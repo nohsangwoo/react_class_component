@@ -20,7 +20,8 @@ class CreateContent extends Component {
           onSubmit={e => {
             e.preventDefault();
             this.props.onSubmit(this.state.title, this.state.desc);
-            alert('submit!!!');
+            e.target.title.value = '';
+            e.target.desc.value = '';
           }}
         >
           <p>
@@ -31,6 +32,7 @@ class CreateContent extends Component {
                 this.setState({ title: e.target.value });
               }}
               placeholder="title"
+              required
             ></input>
           </p>
           <p>
@@ -42,6 +44,7 @@ class CreateContent extends Component {
                 });
               }}
               placeholder="description"
+              required
             ></textarea>
           </p>
           <p>
