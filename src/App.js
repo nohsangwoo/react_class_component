@@ -20,7 +20,7 @@ class App extends Component {
     };
   }
   render() {
-    console.log('App render', this.state.mode);
+    console.log('App render', this.state.mode, this.state.contents);
 
     let _title,
       _desc,
@@ -42,7 +42,23 @@ class App extends Component {
       _desc = desc;
       _article = <ReadContent title={_title} desc={_desc} />;
     } else if (this.state.mode === 'create') {
-      _article = <CreateContent />;
+      _article = (
+        <CreateContent
+          onSubmit={(_title, _desc) => {
+            // add content to this.state.contents
+            this.setState({
+              contents: [
+                ...this.state.contents,
+                {
+                  id: this.state.contents.length + 1,
+                  title: _title,
+                  desc: _desc,
+                },
+              ],
+            });
+          }}
+        />
+      );
     }
     return (
       <div className="App">
