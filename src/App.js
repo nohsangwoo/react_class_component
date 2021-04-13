@@ -39,7 +39,14 @@ class App extends Component {
             this.setState({ mode: 'welcom' });
           }}
         />
-        <TOC data={this.state.contents} />
+        <TOC
+          onChangePage={e => {
+            e.preventDefault();
+            alert('cliick');
+            this.setState({ mode: 'read' });
+          }}
+          data={this.state.contents}
+        />
         <Content title={_title} desc={_desc} />
       </div>
     );

@@ -8,7 +8,7 @@ class TOC extends Component {
       <nav>
         <ul>
           {Objs.map(data => (
-            <li key={data.id}>
+            <li key={data.id} onClick={this.props.onChangePage}>
               <a href={`/content/${data.id}.html`}>{data.title}</a>
               <div>{data.desc}</div>
             </li>
