@@ -7,7 +7,9 @@ class Subject extends Component {
     return (
       <header>
         <h1>
-          <a href="/">{this.props.title}</a>
+          <a onClick={this.props.onChangePage} href="/">
+            {this.props.title}
+          </a>
         </h1>
         {this.props.sub}
       </header>

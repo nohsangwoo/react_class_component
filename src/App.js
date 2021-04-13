@@ -30,27 +30,15 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {/* <Subject
+        <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
-        /> */}
-        <header>
-          <h1>
-            <a
-              href="/"
-              onClick={e => {
-                e.preventDefault();
-                alert('hi');
-                // this.state.mode="welcom"
-                this.setState({ mode: 'welcom' });
-              }}
-              // 화살표 함수를 사용하지 않는다면 .bind(this)를 해줘야함
-            >
-              {this.state.subject.title}
-            </a>
-          </h1>
-          {this.state.subject.sub}
-        </header>
+          onChangePage={e => {
+            e.preventDefault();
+            alert('hi');
+            this.setState({ mode: 'welcom' });
+          }}
+        />
         <TOC data={this.state.contents} />
         <Content title={_title} desc={_desc} />
       </div>
