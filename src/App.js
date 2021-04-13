@@ -8,6 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       mode: 'read',
+      selected_content_id: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcom: { title: 'Welcom', desc: 'Hello React!!!' },
       contents: [
@@ -25,8 +26,17 @@ class App extends Component {
       _title = this.state.welcom.title;
       _desc = this.state.welcom.desc;
     } else if (this.state.mode === 'read') {
-      _title = this.state.contents[0].title;
-      _desc = this.state.contents[0].desc;
+      // _title = this.state.contents[0].title;
+      // _desc = this.state.contents[0].desc;
+      const data = this.state.contents;
+      const findCorrectId = data.filter(data => {
+        return data.id === this.state.selected_content_id;
+      });
+      const [distructureObj] = findCorrectId;
+      const { title, desc } = distructureObj;
+      _title = title;
+      _desc = desc;
+      console.log('findCorrenctId', title, desc);
     }
     return (
       <div className="App">
@@ -35,17 +45,15 @@ class App extends Component {
           sub={this.state.subject.sub}
           onChangePage={e => {
             e.preventDefault();
-            alert('hi');
             this.setState({ mode: 'welcom' });
           }}
         />
         <TOC
-          onChangePage={e => {
-            e.preventDefault();
-            alert('cliick');
-            this.setState({ mode: 'read' });
+          onChangePage={data_id => {
+            this.setState({ mode: 'read', selected_content_id: data_id });
           }}
           data={this.state.contents}
+          setState={this.setState}
         />
         <Content title={_title} desc={_desc} />
       </div>
