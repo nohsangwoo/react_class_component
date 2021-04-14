@@ -46,15 +46,16 @@ class App extends Component {
         <CreateContent
           onSubmit={(_title, _desc) => {
             // add content to this.state.contents
+            const newContents = [
+              ...this.state.contents,
+              {
+                id: this.state.contents.length + 1,
+                title: _title,
+                desc: _desc,
+              },
+            ];
             this.setState({
-              contents: [
-                ...this.state.contents,
-                {
-                  id: this.state.contents.length + 1,
-                  title: _title,
-                  desc: _desc,
-                },
-              ],
+              contents: newContents,
             });
           }}
         />
