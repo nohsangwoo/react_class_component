@@ -16,8 +16,11 @@ class CreateContent extends Component {
         <form
           method="post"
           onSubmit={e => {
-            e.preventDefault();
-            this.props.onSubmit(this.state.id);
+            if (window.confirm('really?')) {
+              e.preventDefault();
+              this.props.onSubmit(this.state.id);
+            }
+
             e.target.id.value = '';
           }}
         >
