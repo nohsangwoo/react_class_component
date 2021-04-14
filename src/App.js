@@ -5,11 +5,12 @@ import Subject from './components/Subject';
 import Control from './components/control';
 import CreateContent from './components/CreateContent';
 import UpdateContent from './components/UpdateContent';
+import DeleteContent from './components/DeleteContent';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'update',
+      mode: 'delete',
       selected_content_id: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcom: { title: 'Welcom', desc: 'Hello React!!!' },
@@ -20,9 +21,7 @@ class App extends Component {
       ],
     };
   }
-  getReadContent() {
-    var i = 0;
-  }
+
   getContent() {
     let _title,
       _desc,
@@ -32,8 +31,6 @@ class App extends Component {
       _desc = this.state.welcom.desc;
       _article = <ReadContent title={_title} desc={_desc} />;
     } else if (this.state.mode === 'read') {
-      // _title = this.state.contents[0].title;
-      // _desc = this.state.contents[0].desc;
       const data = this.state.contents;
       const findCorrectId = data.filter(data => {
         return data.id === this.state.selected_content_id;
@@ -47,7 +44,6 @@ class App extends Component {
       _article = (
         <CreateContent
           onSubmit={(_title, _desc) => {
-            // add content to this.state.contents
             const newContents = [
               ...this.state.contents,
               {
@@ -69,23 +65,34 @@ class App extends Component {
             const omitContents = this.state.contents.filter(content => {
               return content.id !== +_id;
             });
-            console.log('제외한값: ', omitContents);
             const newContent = { id: +_id, title: _title, desc: _desc };
             omitContents.splice(+_id, 0, newContent);
             const addedContents = Array.from(omitContents);
-            console.log('추가된 결과2: ', addedContents);
             this.setState({
               contents: addedContents,
             });
           }}
         />
       );
-    }
+    } else if (this.state.mode === 'delete') {
+      _article = (
+        <DeleteContent
+          onSubmit={_id => {
+            const deletedContents = this.state.contents.filter(content => {
+              return content.id !== +_id;
+            });
 
+            this.setState({
+              contents: deletedContents,
+            });
+          }}
+        />
+      );
+    }
     return _article;
   }
   render() {
-    console.log('App render', this.state.mode, this.state.contents);
+    console.log('App render');
 
     return (
       <div className="App">
@@ -110,11 +117,6 @@ class App extends Component {
           }}
         />
 
-        {/* {this.state.mode === 'read' ? (
-          <ReadContent title={_title} desc={_desc} />
-        ) : (
-          <CreateContent />
-        )} */}
         {this.getContent()}
       </div>
     );

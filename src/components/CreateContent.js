@@ -15,7 +15,6 @@ class CreateContent extends Component {
       <article>
         <h2>Create Content</h2>
         <form
-          // action="/create_process"
           method="post"
           onSubmit={e => {
             e.preventDefault();

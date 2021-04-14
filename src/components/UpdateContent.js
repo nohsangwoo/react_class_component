@@ -10,13 +10,12 @@ class UpdateContent extends Component {
     };
   }
   render() {
-    console.log('CreateContent render');
+    console.log('update render');
 
     return (
       <article>
         <h2>Update Content</h2>
         <form
-          // action="/create_process"
           method="post"
           onSubmit={e => {
             e.preventDefault();
