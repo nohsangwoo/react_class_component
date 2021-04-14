@@ -25,6 +25,7 @@ class TOC extends Component {
                 this.props.onChangePage(data.id);
               }}
             >
+              {`id: ${data.id}  - `}
               <a href={`/content/${data.id}.html`}>{data.title}</a>
             </li>
           ))}

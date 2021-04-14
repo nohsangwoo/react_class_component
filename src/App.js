@@ -4,24 +4,26 @@ import ReadContent from './components/ReadContent';
 import Subject from './components/Subject';
 import Control from './components/control';
 import CreateContent from './components/CreateContent';
+import UpdateContent from './components/UpdateContent';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'create',
+      mode: 'update',
       selected_content_id: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcom: { title: 'Welcom', desc: 'Hello React!!!' },
       contents: [
-        { id: 1, title: 'HTML', desc: 'HTML is for information' },
-        { id: 2, title: 'CSS', desc: 'CSS is for design' },
-        { id: 3, title: 'Javascript', desc: 'Javascript is for interactive' },
+        { id: 0, title: 'HTML', desc: 'HTML is for information' },
+        { id: 1, title: 'CSS', desc: 'CSS is for design' },
+        { id: 2, title: 'Javascript', desc: 'Javascript is for interactive' },
       ],
     };
   }
-  render() {
-    console.log('App render', this.state.mode, this.state.contents);
-
+  getReadContent() {
+    var i = 0;
+  }
+  getContent() {
     let _title,
       _desc,
       _article = null;
@@ -49,7 +51,7 @@ class App extends Component {
             const newContents = [
               ...this.state.contents,
               {
-                id: this.state.contents.length + 1,
+                id: this.state.contents.length,
                 title: _title,
                 desc: _desc,
               },
@@ -60,7 +62,31 @@ class App extends Component {
           }}
         />
       );
+    } else if (this.state.mode === 'update') {
+      _article = (
+        <UpdateContent
+          onSubmit={(_id, _title, _desc) => {
+            const omitContents = this.state.contents.filter(content => {
+              return content.id !== +_id;
+            });
+            console.log('제외한값: ', omitContents);
+            const newContent = { id: +_id, title: _title, desc: _desc };
+            omitContents.splice(+_id, 0, newContent);
+            const addedContents = Array.from(omitContents);
+            console.log('추가된 결과2: ', addedContents);
+            this.setState({
+              contents: addedContents,
+            });
+          }}
+        />
+      );
     }
+
+    return _article;
+  }
+  render() {
+    console.log('App render', this.state.mode, this.state.contents);
+
     return (
       <div className="App">
         <Subject
@@ -89,7 +115,7 @@ class App extends Component {
         ) : (
           <CreateContent />
         )} */}
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
